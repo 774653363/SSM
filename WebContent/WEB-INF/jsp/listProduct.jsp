@@ -6,7 +6,7 @@
 <head>
 <script type="text/javascript">
 		function  add(){
-			window.location.href="${pageContext.request.contextPath}/addCategoryUI";
+			window.location.href="${pageContext.request.contextPath}/addProductUI?category.id=${category.id}";
 			}
 		function  page(pageNum){
 			document.getElementById("pageNum").value=pageNum;
@@ -18,24 +18,32 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div align="center">
+	<h3>
+		<a href="${pageContext.request.contextPath}/listCategory">返回分类页面</a>
+	</h3>
+	<h3>当前分类:${category.name }</h3>
+</div>
 <table align="center" border="1" cellspacing="0">
 	<tr>
         <td>id</td>
         <td>name</td>
+        <td>price</td>
         <td>edit</td>
         <td>delete</td>
     </tr>
-    <c:forEach items="${cs }" var="c">
+    <c:forEach items="${ps }" var="p">
     	<tr>
-        <td>${c.id }</td>
+        <td>${p.id }</td>
         <td>
-        	<a href="listProductByCid?category.id=${c.id}">${c.name }</a>
+        	${p.name }
         </td>
+        <td>${p.price }</td>
         <td>
-			<a href="editCategory?id=${c.id}">edit</a>
+			<a href="editProduct?id=${p.id}">edit</a>
 		</td>
         <td>
-			<a href="deleteCategory?id=${c.id}">delete</a>
+			<a href="deleteProduct?id=${p.id}&category.id=${product.category.id}">delete</a>
 		</td>
         </tr>
     </c:forEach>
@@ -48,11 +56,13 @@
 </div>
 <div align="center">
 	<br>
-	<button onclick="add()">添加分类</button>
+	<button onclick="add()">添加商品</button>
 	<br>
-	<form action="listCategory" method="post" id="form1">
-		<input type="hidden" name="pageNum" value="${page.pageNum}" id="pageNum"><br>
-		name:<input type="text" name="name" value="${category.name}">
+	<form action="listProductByCid" method="post" id="form1">
+		<input type="hidden" name="category.id" value="${product.category.id}" id="id">
+		<input type="hidden" name="pageNum" value="${page.pageNum}" id="pageNum">
+		name:<input type="text" name="name" value="${product.name}"><br>
+		price:<input type="text" name="price" value="${product.price}"><br>
 		<input type="submit" value="模糊查询">
 	</form>
 </div>

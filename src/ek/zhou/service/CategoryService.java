@@ -11,9 +11,12 @@ List<Category> list(String name);
 
 void add(Category category);
 
-Category get(Category category);
+Category get(int id);
 
 void delete(Category category);
 
 void update(Category category);
+
+void addTwo();
+void deleteAll();
 }
